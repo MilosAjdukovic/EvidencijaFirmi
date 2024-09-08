@@ -1,0 +1,59 @@
+﻿@using System.Data
+
+@{
+    ViewData["Title"] = "Prijave";
+}
+
+<h1>Spisak neodobrenih prijava:</h1>
+
+@if (Model != null && Model.Tables.Count > 0 && Model.Tables[0].Rows.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Prijava</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Oblast Delatnosti</th>
+                <th>Naziv Firme</th>
+                <th>Status Prijave</th>
+                <th>Odobri</th>
+                <th>Odbij</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Tables[0].Rows)
+            {
+                @if ((int)row["StatusPrijaveID"] == 1)
+                {
+                    <tr>
+                        <td>@row["IDPrijave"]</td>
+                        <td>@row["ImeKorisnika"]</td>
+                        <td>@row["PrezimeKorisnika"]</td>
+                        <td>@row["OblastDelatnosti"]</td>
+                        <td>@row["NazivFirmePrijave"]</td>
+                        <td>@row["StatusPrijave"]</td>
+                        <td>
+                            <form method="post" action="@Url.Action("UpravljajPrijavama", "Admin")">
+                                <input type="hidden" name="idPrijave" value="@row["IDPrijave"]" />
+                                <input type="hidden" name="action" value="odobri" />
+                                <button type="submit" class="btn btn-sm btn-success">Odobri</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="@Url.Action("UpravljajPrijavama", "Admin")">
+                                <input type="hidden" name="idPrijave" value="@row["IDPrijave"]" />
+                                <input type="hidden" name="action" value="odbij" />
+                                <button type="submit" class="btn btn-sm btn-danger">Odbij</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nema prijava.</p>
+}

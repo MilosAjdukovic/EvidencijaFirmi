@@ -1,0 +1,86 @@
+﻿@using System.Data;
+@model System.Data.DataSet
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Štampa firmi</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2, h3, h4 {
+            color: #1f497d;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        table, th, td {
+            border: 1px solid #1f497d;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        h4 {
+            margin-top: 20px;
+            color: #1f497d;
+        }
+    </style>
+</head>
+<body>
+    <h1>REPUBLIKA SRBIJA</h1>
+    <h2>JAVNA UPRAVA I EUPRAVA</h2>
+    <h2>PRIVREDNI KAPACITETI</h2>
+    <h2>EVIDENCIJA FIRMI</h2>
+    <h3>ŠTAMPA FIRMI PO KORISNIKU</h3>
+
+    @if (Model != null && Model.Tables.Count > 0 && Model.Tables[0].Rows.Count > 0)
+    {
+        <table>
+            <tr>
+                <th>ID Firme</th>
+                <th>PIB Broj</th>
+                <th>Naziv Firme</th>
+                <th>Oblast Delatnosti</th>
+                <th>JMBG Vlasnika</th>
+                <th>Ime Vlasnika</th>
+                <th>Prezime Vlasnika</th>
+                <th>Status Firme</th>
+            </tr>
+            @foreach (DataRow row in Model.Tables[0].Rows)
+            {
+                <tr>
+                    <td>@row["IDFirme"]</td>
+                    <td>@row["PIBBroj"]</td>
+                    <td>@row["NazivFirme"]</td>
+                    <td>@row["OblastDelatnosti"]</td>
+                    <td>@row["JMBGKorisnika"]</td>
+                    <td>@row["ImeKorisnika"]</td>
+                    <td>@row["PrezimeKorisnika"]</td>
+                    <td>@row["StatusFirme"]</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Nema firmi za štampu.</p>
+    }
+</body>
+</html>
+

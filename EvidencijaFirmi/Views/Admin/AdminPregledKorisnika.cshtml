@@ -1,0 +1,60 @@
+﻿@using System.Data;
+@model System.Data.DataSet
+
+@{
+    ViewData["Title"] = "Korisnici";
+}
+
+<form method="get" action="@Url.Action("AdminPregledKorisnika", "Admin")">
+    <label for="prezimeFilter">Pretraži po prezimenu:</label>
+    <input type="text" id="prezimeFilter" name="prezime" />
+    <button type="submit" class="btn btn-sm btn-success">Pretraži</button>
+</form>
+
+<h1>Spisak svih korisnika:</h1>
+
+@if (Model != null && Model.Tables.Count > 0 && Model.Tables[0].Rows.Count > 0)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>JMBG</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>E-mail</th>
+            <th>Lozinka</th>
+            <th>Tip Korisnika</th>
+            <th>Izmeni</th>
+            <th>Obriši</th>
+
+        </tr>
+
+        @foreach (DataRow row in Model.Tables[0].Rows)
+        {
+            <tr>
+                @foreach (var cell in row.ItemArray)
+                {
+                    <td>@cell</td>
+                }
+                <td>
+                   <form method="post" action="@Url.Action("IzmeniKorisnika", "Admin")">
+                     <input type="hidden" name="email" value="@row["Email"]" />
+                     <input type="hidden" name="action" value="izmeni" />
+                     <button type="submit" class="btn btn-sm btn-info">Izmeni</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="@Url.Action("IzmeniKorisnika", "Admin")">
+                        <input type="hidden" name="jmbg" value="@row["JMBG"]" />
+                        <input type="hidden" name="action" value="obrisi" />
+                        <button type="submit" class="btn btn-sm btn-danger">Obriši</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+else
+{
+        <p>Nema korisnika.</p>
+}

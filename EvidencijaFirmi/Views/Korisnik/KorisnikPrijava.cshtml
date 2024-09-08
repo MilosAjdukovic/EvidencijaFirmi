@@ -1,0 +1,76 @@
+﻿@using System.Data;
+@model System.Data.DataSet
+
+@{
+    ViewData["Title"] = "Prijava projekta";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<h1>Prijava projekta</h1>
+
+<form asp-controller="Korisnik" asp-action="PrijaviFirmu" method="post">
+    <div class="form-group">
+        <label for="oblastSelect">Izaberite oblast:</label>
+        <select id="oblastSelect" name="idOblasti" class="form-control">
+            @if (Model != null && Model.Tables.Contains("SveOblasti") && Model.Tables["SveOblasti"].Rows.Count > 0)
+            {
+                @foreach (DataRow row in Model.Tables["SveOblasti"].Rows)
+                {
+                    <option value="@row["IDOblasti"]">@row["ImeOblasti"]</option>
+                }
+            }
+            else
+            {
+                <option value="">Nema dostupnih oblasti!</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="tema">Naziv firme:</label>
+        <input type="text" id="nazivFirme" name="nazivFirme" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Potvrdi</button>
+</form>
+
+<h1>Prijave:</h1>
+
+@if (Model != null && Model.Tables.Contains("Prijave") && Model.Tables["Prijave"].Rows.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Prijava</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Oblast Delatnosti</th>
+                <th>Naziv Firme</th>
+                <th>Status Prijave</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Tables["Prijave"].Rows)
+            {
+                <tr>
+                    <td>@row["IDPrijave"]</td>
+                    <td>@row["ImeKorisnika"]</td>
+                    <td>@row["PrezimeKorisnika"]</td>
+                    <td>@row["OblastDelatnosti"]</td>
+                    <td>@row["NazivFirmePrijave"]</td>
+                    <td>@row["StatusPrijave"]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nema prijava.</p>
+}

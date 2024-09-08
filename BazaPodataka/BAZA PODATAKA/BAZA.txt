@@ -1,0 +1,70 @@
+CREATE DATABASE EvidencijaFirmi
+GO
+
+USE EvidencijaFirmi
+GO
+
+CREATE TABLE KORISNIK(
+    JMBG nvarchar(13) PRIMARY KEY,
+    Ime nvarchar(20) NOT NULL,
+    Prezime nvarchar(40) NOT NULL,
+    Email nvarchar(40) NOT NULL,
+    Lozinka nvarchar(20) NOT NULL,
+    TipKorisnika nvarchar(20) NOT NULL
+)
+GO
+
+CREATE TABLE OBLAST(
+    IDOblasti int IDENTITY(1,1) PRIMARY KEY,
+    ImeOblasti nvarchar(30) NOT NULL
+)
+GO
+
+CREATE TABLE StatusPrijave(
+    IDStatusa int IDENTITY(1,1) PRIMARY KEY,
+    Opis nvarchar(20) NOT NULL
+)
+GO
+
+CREATE TABLE StatusFirme(
+    IDStatusa int IDENTITY(1,1) PRIMARY KEY,
+    Opis nvarchar(20) NOT NULL
+)
+GO
+
+CREATE TABLE PRIJAVA(
+    IDPrijave int IDENTITY(1,1) PRIMARY KEY,
+    JMBGKorisnika nvarchar(13) NOT NULL,
+    NazivFirme nvarchar(100) NOT NULL,
+    IDOblasti int NOT NULL,
+    StatusPrijaveID int NOT NULL,
+    CONSTRAINT FK_PRIJAVA_KORISNIK FOREIGN KEY(JMBGKorisnika) REFERENCES KORISNIK(JMBG)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT FK_PRIJAVA_OBLAST FOREIGN KEY(IDOblasti) REFERENCES OBLAST(IDOblasti)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT FK_PRIJAVA_STATUS FOREIGN KEY(StatusPrijaveID) REFERENCES StatusPrijave(IDStatusa)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+GO
+
+CREATE TABLE FIRMA(
+    IDFirme int IDENTITY(1,1) PRIMARY KEY,
+    PIBBroj nvarchar(9) NOT NULL,
+    Naziv nvarchar(100) NOT NULL,
+    IDOblasti int NOT NULL,
+    JMBGKorisnika nvarchar(13) NOT NULL,
+    StatusFirmeID int NOT NULL,
+    CONSTRAINT FK_FIRMA_OBLAST FOREIGN KEY(IDOblasti) REFERENCES OBLAST(IDOblasti)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT FK_FIRMA_KORISNIK FOREIGN KEY(JMBGKorisnika) REFERENCES KORISNIK(JMBG)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT FK_FIRMA_STATUS FOREIGN KEY(StatusFirmeID) REFERENCES StatusFirme(IDStatusa)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+GO

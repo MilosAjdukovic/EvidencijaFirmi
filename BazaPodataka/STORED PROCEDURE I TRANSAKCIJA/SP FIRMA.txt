@@ -1,0 +1,21 @@
+CREATE PROCEDURE [DajSveFirme]
+AS
+select * from FirmaView
+GO
+
+CREATE PROCEDURE IzmeniFirmu
+    @IDFirme INT,
+    @NoviNaziv NVARCHAR(100),
+    @NoviStatusFirmeID INT
+AS
+    UPDATE FIRMA
+    SET Naziv = @NoviNaziv,
+        StatusFirmeID = @NoviStatusFirmeID
+    WHERE IDFirme = @IDFirme;
+GO
+
+CREATE PROCEDURE ObrisiFirmu
+	@IDFirme INT
+AS
+	DELETE from FIRMA where IDFirme = @IDFirme;
+GO

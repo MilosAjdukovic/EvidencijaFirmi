@@ -1,0 +1,22 @@
+CREATE PROCEDURE [DajSvePrijave]
+AS
+select * from PrijavaView
+GO
+
+CREATE PROCEDURE [DajSvePrijavePoKorisniku]
+(
+@JMBGKorisnika [nvarchar](13)
+)
+AS
+select * from PrijavaView where JMBGKorisnika=@JMBGKorisnika
+GO
+
+CREATE PROCEDURE [OdbijPrijavu]
+(
+@IDPrijave [int]
+)
+AS
+BEGIN
+Update PRIJAVA set StatusPrijaveID=2 where IDPrijave=@IDPrijave
+END
+GO

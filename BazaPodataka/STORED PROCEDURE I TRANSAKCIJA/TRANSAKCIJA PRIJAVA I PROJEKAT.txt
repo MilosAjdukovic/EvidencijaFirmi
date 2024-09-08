@@ -1,0 +1,35 @@
+CREATE PROCEDURE OdobriPrijavuIKreirajFirmu
+    @IDPrijave INT,
+    @PIBBroj NVARCHAR(9)
+AS
+BEGIN
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        UPDATE PRIJAVA
+        SET StatusPrijaveID = 3
+        WHERE IDPrijave = @IDPrijave;
+
+        DECLARE @NazivFirme NVARCHAR(100);
+        DECLARE @IDOblasti INT;
+        DECLARE @JMBGKorisnika NVARCHAR(13);
+
+        SELECT 
+            @NazivFirme = NazivFirme,
+            @IDOblasti = IDOblasti,
+            @JMBGKorisnika = JMBGKorisnika
+        FROM PRIJAVA
+        WHERE IDPrijave = @IDPrijave;
+
+        INSERT INTO FIRMA (PIBBroj, Naziv, IDOblasti, JMBGKorisnika, StatusFirmeID)
+        VALUES (@PIBBroj, @NazivFirme, @IDOblasti, @JMBGKorisnika, 1);
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
+END
+GO
+

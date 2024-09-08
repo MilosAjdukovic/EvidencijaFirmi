@@ -1,0 +1,21 @@
+CREATE VIEW FirmaView AS
+SELECT 
+    f.IDFirme,
+    f.PIBBroj,
+    f.Naziv AS NazivFirme,
+    f.IDOblasti AS IDOblasti,
+    o.ImeOblasti AS OblastDelatnosti,
+    f.JMBGKorisnika AS JMBGKorisnika,
+    k.Ime AS ImeKorisnika,
+    k.Prezime AS PrezimeKorisnika,
+    f.StatusFirmeID AS StatusFirmeID,
+    sf.Opis AS StatusFirme
+FROM 
+    FIRMA f
+JOIN 
+    OBLAST o ON f.IDOblasti = o.IDOblasti
+JOIN 
+    KORISNIK k ON f.JMBGKorisnika = k.JMBG
+JOIN 
+    StatusFirme sf ON f.StatusFirmeID = sf.IDStatusa
+GO

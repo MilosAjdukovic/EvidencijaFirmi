@@ -1,0 +1,85 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: darkred !important;
+}
+
+footer {
+    font-size: 15px;
+    background-color: dimgray !important;
+}
+
+.nav-item {
+    color: white;
+}
+
+.container-fluid {
+    color: white;
+    font-size: 30px;
+    background-color:dimgray !important;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
+}
+
+p {
+    margin-bottom: 80px;
+    margin-top: 80px;
+}
+
+button {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    background-color: orange !important;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background-color: lightsalmon !important;
+    text-decoration: underline;
+}
+
+
+
+.footer.text-muted {
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    color: white !important;
+}
+
+.row {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.text-center {
+    justify-content: center;
+}
+
+.card {
+    background-color: lightcyan;
+    border-radius: 20px;
+    margin: 50px;
+}
+
+

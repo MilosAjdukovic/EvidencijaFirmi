@@ -1,0 +1,24 @@
+USE EvidencijaFirmi
+GO
+
+INSERT INTO StatusPrijave (Opis) VALUES ('Na čekanju');
+INSERT INTO StatusPrijave (Opis) VALUES ('Odbijena');
+INSERT INTO StatusPrijave (Opis) VALUES ('Odobrena');
+GO
+
+INSERT INTO StatusFirme (Opis) VALUES ('Aktivna');
+INSERT INTO StatusFirme (Opis) VALUES ('Neaktivna');
+INSERT INTO StatusFirme (Opis) VALUES ('Ugašena');
+INSERT INTO StatusFirme (Opis) VALUES ('U stečaju');
+GO
+
+INSERT INTO OBLAST (ImeOblasti) VALUES ('IT');
+INSERT INTO OBLAST (ImeOblasti) VALUES ('Građevinarstvo');
+INSERT INTO OBLAST (ImeOblasti) VALUES ('Poljoprivreda');
+INSERT INTO OBLAST (ImeOblasti) VALUES ('Turizam');
+INSERT INTO OBLAST (ImeOblasti) VALUES ('Finansije');
+GO
+
+
+INSERT Into KORISNIK (JMBG, Ime, Prezime, Email, Lozinka, TipKorisnika) values ('1111111111111', 'admin', 'admin', 'admin@admin.com', 'lozinka', 'admin');
+GO

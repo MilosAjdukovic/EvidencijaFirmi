@@ -1,0 +1,4 @@
+CREATE PROCEDURE [DajSveOblasti]
+AS
+select * from OBLAST
+GO

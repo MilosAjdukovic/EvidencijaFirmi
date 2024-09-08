@@ -1,0 +1,20 @@
+CREATE VIEW PrijavaView AS
+SELECT 
+    p.IDPrijave,
+    p.NazivFirme AS NazivFirmePrijave,
+    p.IDOblasti AS IDOblasti,
+    o.ImeOblasti AS OblastDelatnosti,
+    p.JMBGKorisnika AS JMBGKorisnika,
+    k.Ime AS ImeKorisnika,
+    k.Prezime AS PrezimeKorisnika,
+    p.StatusPrijaveID AS StatusPrijaveID,
+    sp.Opis AS StatusPrijave
+FROM 
+    PRIJAVA p
+JOIN 
+    OBLAST o ON p.IDOblasti = o.IDOblasti
+JOIN 
+    KORISNIK k ON p.JMBGKorisnika = k.JMBG
+JOIN 
+    StatusPrijave sp ON p.StatusPrijaveID = sp.IDStatusa
+GO

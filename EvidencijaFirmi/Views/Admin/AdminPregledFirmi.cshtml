@@ -1,0 +1,84 @@
+﻿@using System.Data
+
+@{
+    ViewData["Title"] = "Firme";
+    DataSet dataSet = Model as DataSet; // Castanje Modela u DataSet
+}
+
+<h1>Spisak firmi:</h1>
+
+<form asp-controller="Admin" asp-action="AdminPregledFirmi" method="get">
+    <div class="form-group">
+        <label for="korisnikFilter">Izaberite korisnika:</label>
+        <select id="korisnikFilter" name="jmbgKorisnika" class="form-control">
+            <option value="">Svi korisnici</option>
+            @if (ViewBag.SviKorisnici != null && ViewBag.SviKorisnici.Rows.Count > 0)
+            {
+                @foreach (DataRow row in ViewBag.SviKorisnici.Rows)
+                {
+                    <option value="@row["JMBG"]">@row["Ime"] @row["Prezime"]</option>
+                }
+            }
+            else
+            {
+                <option value="">Nema dostupnih korisnika</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-sm btn-success">Filtriraj</button>
+</form>
+
+@if (dataSet != null && dataSet.Tables.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID Firme</th>
+                <th>PIB Broj</th>
+                <th>Naziv Firme</th>
+                <th>Oblast Delatnosti</th>
+                <th>JMBG Vlasnika</th>
+                <th>Ime Vlasnika</th>
+                <th>Prezime Vlasnika</th>
+                <th>Status Firme</th>
+                <th>Izmeni</th>
+                <th>Obriši</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                <tr>
+                    <td>@row["IDFirme"]</td>
+                    <td>@row["PIBBroj"]</td>
+                    <td>@row["NazivFirme"]</td>
+                    <td>@row["OblastDelatnosti"]</td>
+                    <td>@row["JMBGKorisnika"]</td>
+                    <td>@row["ImeKorisnika"]</td>
+                    <td>@row["PrezimeKorisnika"]</td>
+                    <td>@row["StatusFirme"]</td>
+                    <td>
+                        <form method="post" action="@Url.Action("AdminIzmeniFirmu", "Admin")">
+                            <input type="hidden" name="idFirme" value="@row["IDFirme"]" />
+                            <input type="hidden" name="action" value="izmeni" />
+                            <button type="submit" class="btn btn-sm btn-info">Izmeni</button>
+                        </form>
+
+                    </td>
+                    <td>
+                        <form method="post" action="@Url.Action("AdminIzmeniFirmu", "Admin")">
+                            <input type="hidden" name="idFirme" value="@row["IDFirme"]" />
+                            <input type="hidden" name="action" value="obrisi" />
+                            <button type="submit" class="btn btn-sm btn-danger">Obriši</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nema firmi za štampu.</p>
+}

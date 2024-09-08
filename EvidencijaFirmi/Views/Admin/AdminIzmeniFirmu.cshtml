@@ -1,0 +1,46 @@
+﻿@model SlojPodataka.clsFirma
+
+@{
+    ViewData["Title"] = "Izmenite firmu";
+}
+
+<div class="card">
+    <h4 class="text-center mb-4">Izmeni podatke</h4>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <form asp-action="IzmeniPodatkeZaFirmu" method="post">
+        <input type="hidden" name="IdFirme" value="@Model.IdFirme" />
+
+        <div class="row text-left">
+            <div class="form-group col-sm-6 flex-column d-flex">
+                <label asp-for="Naziv">Naziv Firme<span class="text-danger"> *</span></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-6 flex-column d-flex">
+                <label asp-for="IdOblasti">Oblast Delatnosti<span class="text-danger"> *</span></label>
+                <select asp-for="IdOblasti" class="form-control" asp-items="ViewBag.OblastiList">
+                    <option value="">-- Select --</option>
+                </select>
+                <span asp-validation-for="IdOblasti" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="btn-group btn-group-sm" role="group">
+            <button type="submit" class="btn btn-sm btn-success" name="action" value="izmeni">Izmeni podatke</button>
+        </div>
+    </form>
+</div>
