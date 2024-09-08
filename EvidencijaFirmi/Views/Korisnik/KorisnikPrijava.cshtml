@@ -2,7 +2,7 @@
 @model System.Data.DataSet
 
 @{
-    ViewData["Title"] = "Prijava projekta";
+    ViewData["Title"] = "Prijava firme";
 }
 
 @if (TempData["SuccessMessage"] != null)
@@ -12,7 +12,7 @@
     </div>
 }
 
-<h1>Prijava projekta</h1>
+<h1>Prijava firme</h1>
 
 <form asp-controller="Korisnik" asp-action="PrijaviFirmu" method="post">
     <div class="form-group">
